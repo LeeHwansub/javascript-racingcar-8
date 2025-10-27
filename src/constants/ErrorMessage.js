@@ -7,3 +7,4 @@ export class ErrorMessage {
   static INVALID_NUMBER_FORMAT = "[ERROR] 숫자만 입력해주세요.";
 }
 
+

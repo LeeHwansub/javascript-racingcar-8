@@ -5,3 +5,4 @@ export const MIN_MOVEMENT_COUNT = 1;
 export const MAX_CAR_NAME_LENGTH = 5;
 export const SEPARATOR = ",";
 
+
