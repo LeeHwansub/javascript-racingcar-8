@@ -20,6 +20,8 @@ export class Validator {
       throw new Error(ErrorMessage.EMPTY_CAR_NAMES);
     }
     
+    // 중복 이름은 허용하되, 나중에 구분할 수 있도록 처리
+    
     for (const carName of carNames) {
       const trimmedCarName = carName.trim();
       

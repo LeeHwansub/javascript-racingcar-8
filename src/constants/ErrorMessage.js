@@ -5,6 +5,7 @@ export class ErrorMessage {
   static INVALID_CAR_NAME_LENGTH = "[ERROR] 자동차 이름은 5자 이하만 가능합니다.";
   static INVALID_CAR_NAME_SPACE = "[ERROR] 자동차 이름에 공백이 포함될 수 없습니다.";
   static EMPTY_CAR_NAME_IN_LIST = "[ERROR] 빈 자동차 이름이 포함되어 있습니다.";
+  static DUPLICATE_CAR_NAME = "[ERROR] 중복된 자동차 이름이 있습니다.";
   
   // 이동 횟수 관련 에러
   static EMPTY_MOVEMENT_COUNT = "[ERROR] 시도할 횟수를 입력해주세요.";

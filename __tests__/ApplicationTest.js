@@ -1,5 +1,6 @@
 import App from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { Car } from "../src/models/Car.js";
 
 /**
  * 사용자 입력 모킹 함수
@@ -157,6 +158,68 @@ describe("자동차 경주", () => {
         expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
       });
     });
+
+    test("중복된 자동차 이름이 있는 경우 구분하여 처리", async () => {
+      // given: 중복된 이름이 있는 자동차들
+      Car.resetIdCounter(); // ID 카운터 리셋
+      const MOVING_FORWARD = 4;
+      const STOP = 3;
+      const inputs = ["pobi,pobi,jun", "2"];
+      const logs = [
+        "pobi#1 : -",   // 첫 번째 pobi 전진
+        "pobi#2 : ",    // 두 번째 pobi 멈춤
+        "jun : -",      // jun 전진
+        "pobi#1 : -",   // 첫 번째 pobi 전진 (누적 1)
+        "pobi#2 : ",    // 두 번째 pobi 멈춤 (누적 0)
+        "jun : -",      // jun 전진 (누적 1)
+        "최종 우승자 : pobi#1, jun"  // 공동 우승
+      ];
+      const logSpy = getLogSpy();
+
+      mockQuestions(inputs);
+      // 첫 번째 pobi는 전진, 두 번째 pobi는 멈춤, jun은 전진
+      mockRandoms([MOVING_FORWARD, STOP, MOVING_FORWARD, MOVING_FORWARD, STOP, MOVING_FORWARD]);
+
+      // when: 게임 실행
+      const app = new App();
+      await app.run();
+
+      // then: 중복 이름이 ID로 구분되어 출력되는지 확인
+      logs.forEach((log) => {
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+      });
+    });
+
+    test("중복된 자동차 이름이 있는 경우 구분하여 처리", async () => {
+      // given: 중복된 이름이 있는 자동차들
+      Car.resetIdCounter(); // ID 카운터 리셋
+      const MOVING_FORWARD = 4;
+      const STOP = 3;
+      const inputs = ["pobi,pobi,jun", "2"];
+      const logs = [
+        "pobi#1 : -",   // 첫 번째 pobi 전진
+        "pobi#2 : ",    // 두 번째 pobi 멈춤
+        "jun : -",      // jun 전진
+        "pobi#1 : -",   // 첫 번째 pobi 전진 (누적 1)
+        "pobi#2 : ",    // 두 번째 pobi 멈춤 (누적 0)
+        "jun : -",      // jun 전진 (누적 1)
+        "최종 우승자 : pobi#1, jun"  // 공동 우승
+      ];
+      const logSpy = getLogSpy();
+
+      mockQuestions(inputs);
+      // 첫 번째 pobi는 전진, 두 번째 pobi는 멈춤, jun은 전진
+      mockRandoms([MOVING_FORWARD, STOP, MOVING_FORWARD, MOVING_FORWARD, STOP, MOVING_FORWARD]);
+
+      // when: 게임 실행
+      const app = new App();
+      await app.run();
+
+      // then: 중복 이름이 ID로 구분되어 출력되는지 확인
+      logs.forEach((log) => {
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+      });
+    });
   });
 
   describe("예외 처리 테스트", () => {
@@ -220,6 +283,7 @@ describe("자동차 경주", () => {
         // then: 에러 발생 확인
         await expect(app.run()).rejects.toThrow("[ERROR] 빈 자동차 이름이 포함되어 있습니다.");
       });
+
     });
 
     describe("이동 횟수 검증", () => {

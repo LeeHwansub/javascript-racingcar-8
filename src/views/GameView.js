@@ -15,15 +15,16 @@ export class GameView {
     return input;
   }
 
-  static printCarStatus(car) {
+  static printCarStatus(car, allCars = []) {
     const dashes = "-".repeat(car.position);
-    const status = `${car.name} : ${dashes}`;
+    const displayName = car.getDisplayName(allCars);
+    const status = `${displayName} : ${dashes}`;
     GameView.print(status);
   }
 
   static printRoundResult(cars) {
     for (const car of cars) {
-      GameView.printCarStatus(car);
+      GameView.printCarStatus(car, cars);
     }
     GameView.print("");
   }
@@ -33,8 +34,8 @@ export class GameView {
     GameView.print("실행 결과");
   }
 
-  static printWinners(winners) {
-    const winnerNames = winners.map((winner) => winner.name);
+  static printWinners(winners, allCars = []) {
+    const winnerNames = winners.map((winner) => winner.getDisplayName(allCars));
     const winnerNamesString = winnerNames.join(", ");
     GameView.print(`최종 우승자 : ${winnerNamesString}`);
   }

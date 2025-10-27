@@ -83,7 +83,7 @@ export class GameController {
     
     // 우승자 판정 및 출력
     const winners = this.findWinners(cars);
-    GameView.printWinners(winners);
+    GameView.printWinners(winners, cars);
   }
 }
 
